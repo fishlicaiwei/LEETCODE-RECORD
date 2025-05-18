@@ -1,0 +1,22 @@
+#数组最开始的一题
+
+class Solution(object):
+    def findMaxConsecutiveOnes(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        count=0
+        result=0
+        for num in nums:
+            if num==1:
+                count+=1
+            else:
+                result=max(result,count)
+                count=0
+        return max(result,count)
+
+#这题最容易出错的是return，一般来说return可以直接返回result结果，这个结果已经对比出了最大值。
+#但是这题的result是在else，当数组碰到了0的时候才更新的。
+#需要考虑边界情况，如果最后一个数字不是0，那么result并不会更新。这个时候结果需要return 去比较count和result的大小。
+#因为这个时候count刚好没有被清零。
