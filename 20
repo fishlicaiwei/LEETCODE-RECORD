@@ -1,0 +1,47 @@
+class Solution(object):
+    def isValid(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        #map={')'：'(', ']':'[', '}':'{' }
+        bracket_map = {')': '(', ']': '[', '}': '{'}
+       
+        n=0
+        stack=[]
+        for i in range(0,len(s)):
+            if s[i]=='(' or s[i]=='[' or s[i]=='{' :
+                stack.append(s[i])
+            else:
+                if len(stack)==0:
+                    return False
+                else:
+                    n=stack.pop()
+                    if n!=bracket_map[s[i]]:
+                        return False
+        return not stack
+
+
+  题目逻辑让人先想到堆 因为最后一个进去的必须和下一个匹配
+  然后我不熟悉的地方，关于字典映射的定义map={} 
+  字典查找：
+  通过键查找值：value = bracket_map[key]
+  键相当于是索引，可以直接查找。
+
+  而如果有值，查找键必须要用循环。逻辑类似于数组查找元素，必须要遍历
+  keys=[k for k,v in bracket_map.items() if v== target]
+  #这里不是给范围，也不是给数组，而是写成一个迭代器
+
+  #我原本代码犯错的一个地方，最后我在结束的地方我输出了return Ture
+   但是还有一种情况需要考虑，即最后栈里还剩左括号，但是所有右括号已经被匹配完了
+   因为前面的查找都是在以右括号能否找到准确的配对而进行的。所以以右括号为主导，
+   不能判断左括号的情况。
+   return not stack 我想以这个形式会常用来检测stack是否为空
+   空栈时，stack 作为布尔值会被视为 False。
+   not stack 为ture
+   
+   基础知识：
+   return 语句：当执行到 return 时，函数会立即退出，并返回指定的值。
+循环终止：如果在循环内的条件满足并执行了 return，那么后续的迭代也不会被执行，整个函数会直接结束。
+所以这题如果触碰到这些条件，直接判断为False了代表不满足题目要求
+唯独之前整个列表都循环完了。没有再遇到不满足的情况。且栈里也没有东西了。可以满足题目条件
