@@ -1,0 +1,37 @@
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution(object):
+    def removeElements(self, head, val):
+        """
+        :type head: Optional[ListNode]
+        :type val: int
+        :rtype: Optional[ListNode]
+        """
+     
+        dummy=ListNode()
+        dummy.next=head
+        prev=dummy
+
+        while head is not None:
+            if head.val==val:
+                prev.next=head.next
+            else:
+                prev=prev.next
+            head=head.next
+        return dummy.next
+
+很多需要注意的地方：
+1，按照列表定义的值和指针的名称来调用
+2，定义一个新的链表用 ListNode()类来定义
+3，头节点的定义方法，先定义它 dummy=ListNode()，然后再调用 dummy.next=head，让它指向头节点，这样我们就可以随意挪动题目给的head了
+4，这题的思路是让当前节点的前一个节点，指向后一个节点，以此来删除节点，所以要定义前一个节点prev
+5，在定义prev的时候，dummy刚好符合要求可以让他赋值，但是我自己思考这道题的时候我以为每一次都要重新定义一个新节点，然后用它去指向head
+但我现在觉得这种做法不对，因为重新定义并没有在遍历整个数组，我们要的还是遍历。用next指向下一个元素
+6，这里涉及for和while遍历的区别，for会自动去迭代，而while需要手动+1（对于链表需要手动.next）指向下一元素
+7，while终止条件的设定，对于链表来说，直到head即当前节点为None时遍历完毕
+8，手动迭代指向下一个元素，这里不只head节点需要不断的指向下一个元素（注意它是在判断语句外），而判断语句让prev遍历
+9，为什么这里的else必不可少，因为手动迭代，两个指针都要向前，如果没有遇到要删除的元素，prev也要遍历。当然遇到的时候遍历的方式不同
+10，返回，我返回错了 返回成了dummy这样它的值也会包含在里面。要把头节点也包含进去就要从dummy.next（即头节点开始返回）
