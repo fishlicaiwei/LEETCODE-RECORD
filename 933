@@ -1,0 +1,22 @@
+class RecentCounter(object):
+
+    def __init__(self):
+        self.q=deque()
+        
+
+    def ping(self, t):
+        """
+        :type t: int
+        :rtype: int
+        """
+        self.q.append(t)
+        while t-self.q[0]>3000:
+            self.q.popleft()
+        return len(self.q)
+
+
+1.这是一个定义类，不仅要定义方法，还要定义init构造函数。定义的时候使用self.
+2，self是实例属性，表示当前对象的q队列。每个实例都有自己的q。所以使用self可以确保我访问的是当前实例的属性
+如果不适用self，python会在局部作用域中查找q。没有找到就会抛出NameError。self可以明确表示这是一个对象的属性，是不局部变量
+3，因为int ping(int t) 在时间 t 添加一个新请求，其中 t 表示以毫秒为单位的某个时间，并返回过去 3000 毫秒内发生的所有请求数（包括新请求）
+这是题目要求，读清楚函数的定义。它的输入就是一个最新的数。
