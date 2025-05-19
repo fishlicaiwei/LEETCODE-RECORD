@@ -1,0 +1,31 @@
+class Solution(object):
+    def nextGreaterElement(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: List[int]
+        """
+        stack=[]
+        result=[-1]*len(nums1)
+        temp=[]
+        for num in nums2:
+            stack.append(num)
+        for i in range(0,len(nums1)):
+            temp=[]
+            isFound=False
+            nextMax=-1
+            num=nums1[i]
+            while (len(stack)!=0 and not isFound):
+                top = stack.pop()
+                if top>num:
+                    nextMax=top
+                elif top==num:
+                    isFound=True #已经找到这个元素
+                temp.append(top) #每次取出值都把它取出到temp中，以后会把刚刚删除的这个元素再加回stack中
+                #剩下的元素因为没有被pop出来，一直留在栈底。因为先被pop出来的元素留在temp的底。他会最后被放入stack
+                #所以用两个stack是可以实现对一个stack的复原的
+            result[i]=nextMax
+            while len(temp)!=0:
+                stack.append(temp.pop())
+        return result
+            
