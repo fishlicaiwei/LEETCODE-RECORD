@@ -1,1 +1,3 @@
 # LEETCODE-RECORD
+
+先击破hot100吧！
