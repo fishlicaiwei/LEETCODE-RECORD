@@ -1,0 +1,26 @@
+双指针的用法
+
+class Solution(object):
+    def removeElement(self, nums, val):
+        """
+        :type nums: List[int]
+        :type val: int
+        :rtype: int
+        """
+        fast=0
+        slow=0
+
+        while fast<len(nums):
+            if nums[fast]!=val:
+                nums[slow]=nums[fast]
+                slow+=1
+            fast+=1
+        return slow
+        
+#两个指针作用不同，能在一次遍历中完成任务，时间复杂度为O（n）
+#原地操作，不需要额外储存，空间复杂度0（1)
+#一个指针用于遍历数组进行查找，一个指针用于指向要修改的部位
+#使用满指针来记录非目标值的位置，确保不覆盖未处理的元素
+#注意最后的返回数组的长度，如果返回的是长度，而不是元素的话可以直接返回索引
+#返回索引有要注意的点，即，索引比长度小1
+#判断索引是否提前已经移动到下一位置，还是在当前位置
