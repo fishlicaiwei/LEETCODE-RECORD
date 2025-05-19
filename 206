@@ -1,0 +1,31 @@
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution(object):
+    def reverseList(self, head):
+        """
+        :type head: Optional[ListNode]
+        :rtype: Optional[ListNode]
+        """
+        dummy=ListNode(0)
+        dummy.next=head
+
+
+
+        while head is not None and head.next is not None :
+            hnext=head.next
+            dnext=dummy.next
+
+            dummy.next=hnext
+            head.next=hnext.next
+            hnext.next=dnext
+            
+    
+           
+        return dummy.next
+
+#反转列表，删除一个元素，并把这个元素插入到dummy节点之后
+重新形成链
+要注意的是，这里删除的那个元素和dummy后的第一个链表节点用变量储存起来，防止找不到
