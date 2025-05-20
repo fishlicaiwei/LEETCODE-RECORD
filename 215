@@ -1,0 +1,16 @@
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        heap=[]
+        heapq.heapify(heap) #原来python里面堆的函数是可以直接用的
+        for num in nums:
+            heapq.heappush(heap,num*-1)
+        while k>1:
+            heapq.heappop(heap)
+            k-=1 #用while手动迭代
+        return heapq.heappop(heap)*-1
+
+        主要是弄清堆的写法，多半功能是调用heapq方法完成的，把堆放到括号里
+         heapq.heappush(heap,num*-1) 最大堆的时候要把所有元素按负值放进去，用最小堆排序的时候刚好是最好的
+         heapq.heappush(heap,num) 添加堆的元素的时候，把堆和元素放在括号里
+         
+         heapq.heappop(heap)*-1 最后如果是输出元素 要取负把它变回原来的样子的
